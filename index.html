@@ -1,0 +1,1786 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Shift at Midnight - Play the Horror Game Online Free</title>
+		<meta
+			name="description"
+			content="Play Shift at Midnight online in a WebGL build. Learn the controls, spot doppelgangers, manage the gas station, and survive the night shift before sunrise."
+		/>
+		<meta
+			name="keywords"
+			content="shift at midnight, Shift At Midnight, shift at midnight game, shift at midnight online, horror game, detective horror, gas station horror game"
+		/>
+		<meta name="robots" content="index,follow,max-image-preview:large" />
+		<meta name="theme-color" content="#080907" />
+		<link rel="canonical" href="https://shift-at-midnight.pages.dev/" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Russo+One&display=swap"
+			rel="stylesheet"
+		/>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://shift-at-midnight.pages.dev/" />
+		<meta
+			property="og:title"
+			content="Shift at Midnight - Play the Horror Game Online Free"
+		/>
+		<meta
+			property="og:description"
+			content="Play Shift at Midnight in your browser, learn the controls, question suspicious customers, and survive the night shift."
+		/>
+		<meta property="og:site_name" content="Shift at Midnight Online" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			name="twitter:title"
+			content="Shift at Midnight - Play the Horror Game Online Free"
+		/>
+		<meta
+			name="twitter:description"
+			content="A browser-playable Shift at Midnight game page with controls, tips, FAQ, and a WebGL build."
+		/>
+
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "VideoGame",
+				"name": "Shift At Midnight",
+				"url": "https://shift-at-midnight.pages.dev/",
+				"description": "Shift at Midnight is a detective horror and gas station management game about spotting doppelgangers during a late-night shift.",
+				"applicationCategory": "Game",
+				"genre": ["Survival Horror", "Simulation", "Detective", "Co-op"],
+				"gamePlatform": ["Web browser", "Windows"],
+				"operatingSystem": "Web browser",
+				"playMode": ["SinglePlayer", "CoOp"],
+				"author": {
+					"@type": "Person",
+					"name": "Bun Muen"
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": "Kwalee"
+				},
+				"datePublished": "2026-07-22"
+			}
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "What is Shift at Midnight?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Shift at Midnight is a detective horror game set during a late-night gas station shift. You manage the store, question customers, spot doppelgangers, and survive when a wrong call turns the shift hostile."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Can I play Shift at Midnight online?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Yes. This page embeds a WebGL browser build for quick online play. The first load can take around a minute because the game downloads and prepares large Unity files."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "What are the basic controls?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Use W, A, S, and D to move, Space to jump, E to interact, Left Ctrl to crouch, G to drop an item, and R to reload."
+						}
+					}
+				]
+			}
+		</script>
+
+		<style>
+			:root {
+				--bg: #080907;
+				--bg-2: #10110d;
+				--panel: #151611;
+				--panel-2: #1c1c16;
+				--line: #343427;
+				--line-strong: #56513b;
+				--text: #f3eedb;
+				--muted: #bbb39b;
+				--soft: #827b68;
+				--danger: #ef4b4b;
+				--danger-dark: #7e1d1d;
+				--amber: #d5a84d;
+				--green: #7cc46b;
+				--cyan: #7ad8d4;
+				--shadow: 0 24px 90px rgba(0, 0, 0, 0.48);
+				--radius: 8px;
+				color-scheme: dark;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			html {
+				min-height: 100%;
+				background: var(--bg);
+				scroll-behavior: smooth;
+			}
+
+			body {
+				min-height: 100%;
+				margin: 0;
+				overflow-x: hidden;
+				background:
+					repeating-linear-gradient(
+						0deg,
+						rgba(255, 255, 255, 0.025) 0,
+						rgba(255, 255, 255, 0.025) 1px,
+						transparent 1px,
+						transparent 4px
+					),
+					linear-gradient(180deg, #090a07 0%, #12130f 46%, #080907 100%);
+				color: var(--text);
+				font-family: "Chakra Petch", system-ui, -apple-system, BlinkMacSystemFont,
+					"Segoe UI", sans-serif;
+				font-size: 16px;
+				line-height: 1.65;
+			}
+
+			body::before {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+				background:
+					linear-gradient(90deg, rgba(213, 168, 77, 0.08), transparent 34%),
+					linear-gradient(135deg, transparent 0 64%, rgba(239, 75, 75, 0.08));
+				content: "";
+				pointer-events: none;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			button,
+			a {
+				-webkit-tap-highlight-color: transparent;
+			}
+
+			button {
+				font: inherit;
+			}
+
+			.skip-link {
+				position: fixed;
+				top: 12px;
+				left: 12px;
+				z-index: 100;
+				transform: translateY(-150%);
+				border: 1px solid var(--amber);
+				border-radius: var(--radius);
+				background: #0b0b08;
+				color: var(--text);
+				padding: 10px 14px;
+				transition: transform 180ms ease;
+			}
+
+			.skip-link:focus {
+				transform: translateY(0);
+			}
+
+			.site-header {
+				position: sticky;
+				top: 0;
+				z-index: 30;
+				border-bottom: 1px solid rgba(213, 168, 77, 0.2);
+				background: rgba(8, 9, 7, 0.88);
+				backdrop-filter: blur(18px);
+			}
+
+			.nav {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: min(1180px, calc(100% - 32px));
+				margin: 0 auto;
+				padding: 14px 0;
+				gap: 16px;
+			}
+
+			.brand {
+				display: flex;
+				align-items: center;
+				min-width: 0;
+				gap: 10px;
+				font-family: "Russo One", system-ui, sans-serif;
+				line-height: 1;
+				text-transform: uppercase;
+			}
+
+			.brand-mark {
+				display: grid;
+				width: 32px;
+				height: 32px;
+				place-items: center;
+				border: 1px solid var(--line-strong);
+				border-radius: 6px;
+				background: #0f110c;
+				color: var(--amber);
+				font-size: 0.8rem;
+			}
+
+			.brand span:last-child {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.nav-links {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				gap: 6px;
+			}
+
+			.nav-links a,
+			.ghost-button,
+			.icon-button {
+				border: 1px solid transparent;
+				border-radius: var(--radius);
+				color: var(--muted);
+				cursor: pointer;
+				transition:
+					border-color 180ms ease,
+					color 180ms ease,
+					background 180ms ease;
+			}
+
+			.nav-links a {
+				padding: 8px 11px;
+				font-size: 0.92rem;
+				font-weight: 700;
+			}
+
+			.nav-links a:hover,
+			.nav-links a:focus-visible,
+			.ghost-button:hover,
+			.ghost-button:focus-visible,
+			.icon-button:hover,
+			.icon-button:focus-visible {
+				border-color: rgba(213, 168, 77, 0.48);
+				background: rgba(213, 168, 77, 0.08);
+				color: var(--text);
+				outline: none;
+			}
+
+			.ghost-button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 40px;
+				padding: 8px 13px;
+				background: transparent;
+				font-weight: 700;
+			}
+
+			.icon-button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 40px;
+				height: 40px;
+				background: rgba(255, 255, 255, 0.03);
+			}
+
+			.icon-button svg {
+				width: 18px;
+				height: 18px;
+				fill: none;
+				stroke: currentColor;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+				stroke-width: 2;
+			}
+
+			.main {
+				width: min(1180px, calc(100% - 32px));
+				margin: 0 auto;
+			}
+
+			.play-section {
+				min-height: calc(100vh - 70px);
+				padding: 34px 0 72px;
+			}
+
+			.hero-copy {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) auto;
+				align-items: end;
+				margin-bottom: 24px;
+				gap: 22px;
+			}
+
+			.eyebrow {
+				margin: 0 0 8px;
+				color: var(--amber);
+				font-size: 0.84rem;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+
+			h1,
+			h2,
+			h3 {
+				margin: 0;
+				font-family: "Russo One", system-ui, sans-serif;
+				font-weight: 400;
+				letter-spacing: 0;
+				line-height: 1.08;
+			}
+
+			h1 {
+				max-width: 850px;
+				font-size: 3.15rem;
+			}
+
+			h2 {
+				font-size: 2.15rem;
+			}
+
+			h3 {
+				font-size: 1.18rem;
+			}
+
+			p {
+				margin: 0;
+			}
+
+			.lead {
+				max-width: 780px;
+				margin-top: 16px;
+				color: var(--muted);
+				font-size: 1.08rem;
+			}
+
+			.cta-row {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: flex-start;
+				gap: 10px;
+			}
+
+			.primary-button,
+			.secondary-button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 44px;
+				border-radius: var(--radius);
+				cursor: pointer;
+				font-weight: 800;
+				transition:
+					transform 180ms ease,
+					border-color 180ms ease,
+					background 180ms ease,
+					color 180ms ease;
+			}
+
+			.primary-button {
+				border: 1px solid rgba(239, 75, 75, 0.68);
+				background: linear-gradient(180deg, #ef4b4b, #aa2626);
+				color: white;
+				padding: 10px 16px;
+				box-shadow: 0 14px 36px rgba(126, 29, 29, 0.36);
+			}
+
+			.secondary-button {
+				border: 1px solid var(--line-strong);
+				background: rgba(255, 255, 255, 0.04);
+				color: var(--text);
+				padding: 10px 15px;
+			}
+
+			.primary-button:hover,
+			.primary-button:focus-visible,
+			.secondary-button:hover,
+			.secondary-button:focus-visible {
+				outline: none;
+				transform: translateY(-1px);
+			}
+
+			.primary-button:focus-visible,
+			.secondary-button:focus-visible {
+				box-shadow: 0 0 0 3px rgba(122, 216, 212, 0.28);
+			}
+
+			.game-layout {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) 315px;
+				align-items: start;
+				gap: 18px;
+			}
+
+			.game-frame,
+			.side-block,
+			.section-panel,
+			.notice-block,
+			.step,
+			.tip,
+			.faq-item,
+			.compare-table-wrap {
+				border: 1px solid var(--line);
+				border-radius: var(--radius);
+				background: rgba(21, 22, 17, 0.86);
+				box-shadow: var(--shadow);
+			}
+
+			.game-frame {
+				overflow: hidden;
+			}
+
+			.game-toolbar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				min-height: 56px;
+				border-bottom: 1px solid var(--line);
+				background: rgba(9, 10, 7, 0.9);
+				padding: 9px 12px;
+				gap: 12px;
+			}
+
+			.game-title {
+				min-width: 0;
+			}
+
+			.game-title p {
+				color: var(--soft);
+				font-size: 0.8rem;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+
+			.game-title strong {
+				display: block;
+				overflow: hidden;
+				color: var(--text);
+				font-size: 1rem;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.game-tools {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.game-screen {
+				position: relative;
+				width: 100%;
+				aspect-ratio: 16 / 9;
+				min-height: 360px;
+				background:
+					linear-gradient(rgba(122, 216, 212, 0.05), transparent 42%),
+					#020302;
+			}
+
+			#unity-canvas {
+				display: block;
+				width: 100%;
+				height: 100%;
+				background: #000;
+				outline: none;
+			}
+
+			#unity-canvas:focus-visible {
+				box-shadow: inset 0 0 0 3px rgba(122, 216, 212, 0.45);
+			}
+
+			.loading-panel,
+			.error-panel {
+				position: absolute;
+				inset: 0;
+				display: grid;
+				place-items: center;
+				padding: 24px;
+				background:
+					linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.88)),
+					repeating-linear-gradient(
+						90deg,
+						rgba(255, 255, 255, 0.04) 0,
+						rgba(255, 255, 255, 0.04) 1px,
+						transparent 1px,
+						transparent 16px
+					);
+				text-align: center;
+			}
+
+			.loading-card,
+			.error-card {
+				width: min(520px, 100%);
+			}
+
+			.loading-card h2,
+			.error-card h2 {
+				font-size: 1.45rem;
+			}
+
+			.loading-card p,
+			.error-card p {
+				margin-top: 10px;
+				color: var(--muted);
+			}
+
+			.progress-shell {
+				height: 12px;
+				margin-top: 18px;
+				overflow: hidden;
+				border: 1px solid var(--line-strong);
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.08);
+			}
+
+			.progress-fill {
+				width: 4%;
+				height: 100%;
+				border-radius: inherit;
+				background: linear-gradient(90deg, var(--amber), var(--danger));
+				transition: width 260ms ease;
+			}
+
+			.loading-meta {
+				display: flex;
+				justify-content: space-between;
+				margin-top: 8px;
+				color: var(--soft);
+				font-size: 0.85rem;
+				gap: 12px;
+			}
+
+			.error-panel {
+				display: none;
+			}
+
+			.game-ready .loading-panel {
+				display: none;
+			}
+
+			.game-failed .error-panel {
+				display: grid;
+			}
+
+			.game-controls-strip {
+				border-top: 1px solid var(--line);
+				background: rgba(9, 10, 7, 0.88);
+				padding: 10px 12px 12px;
+			}
+
+			.game-controls-head {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 10px;
+				gap: 12px;
+			}
+
+			.game-controls-head p {
+				color: var(--soft);
+				font-size: 0.82rem;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
+
+			.game-controls-head span {
+				color: var(--muted);
+				font-size: 0.9rem;
+				text-align: right;
+			}
+
+			.side-panel {
+				display: grid;
+				align-content: start;
+				gap: 16px;
+			}
+
+			.side-block {
+				padding: 18px;
+			}
+
+			.status-list {
+				display: grid;
+				gap: 12px;
+				margin-top: 14px;
+			}
+
+			.status-item {
+				display: grid;
+				grid-template-columns: 36px minmax(0, 1fr);
+				gap: 10px;
+			}
+
+			.status-symbol {
+				display: grid;
+				width: 36px;
+				height: 36px;
+				place-items: center;
+				border: 1px solid var(--line-strong);
+				border-radius: 6px;
+				color: var(--amber);
+				font-family: "Russo One", system-ui, sans-serif;
+				font-size: 0.8rem;
+			}
+
+			.status-item strong {
+				display: block;
+				line-height: 1.2;
+			}
+
+			.status-item span {
+				display: block;
+				margin-top: 3px;
+				color: var(--muted);
+				font-size: 0.92rem;
+				line-height: 1.45;
+			}
+
+			.flashlight-warning {
+				border: 1px solid rgba(239, 75, 75, 0.48);
+				border-radius: var(--radius);
+				background: rgba(126, 29, 29, 0.2);
+				padding: 13px;
+			}
+
+			.flashlight-warning strong {
+				color: #ff9b85;
+			}
+
+			.flashlight-warning p {
+				margin-top: 6px;
+				color: var(--muted);
+				font-size: 0.92rem;
+				line-height: 1.5;
+			}
+
+			.quick-controls {
+				display: grid;
+				grid-template-columns: repeat(6, minmax(0, 1fr));
+				gap: 1px;
+				border: 1px solid var(--line);
+				border-radius: var(--radius);
+				background: var(--line);
+				overflow: hidden;
+			}
+
+			.quick-controls div {
+				min-height: 50px;
+				background: rgba(21, 22, 17, 0.96);
+				padding: 8px 10px;
+			}
+
+			.quick-controls kbd {
+				display: inline-block;
+				min-width: 30px;
+				border: 1px solid var(--line-strong);
+				border-radius: 6px;
+				background: #0d0e0a;
+				color: var(--text);
+				padding: 2px 6px;
+				font: 700 0.82rem "Chakra Petch", monospace;
+				text-align: center;
+			}
+
+			.quick-controls span {
+				display: block;
+				margin-top: 4px;
+				color: var(--muted);
+				font-size: 0.82rem;
+				line-height: 1.25;
+			}
+
+			.section {
+				padding: 58px 0;
+				border-top: 1px solid rgba(213, 168, 77, 0.14);
+			}
+
+			.section-header {
+				display: grid;
+				grid-template-columns: minmax(0, 0.92fr) minmax(260px, 0.55fr);
+				align-items: end;
+				margin-bottom: 22px;
+				gap: 26px;
+			}
+
+			.section-header p,
+			.section-panel p,
+			.step p,
+			.tip p,
+			.faq-item p,
+			.notice-block p {
+				color: var(--muted);
+			}
+
+			.section-panel {
+				padding: 22px;
+			}
+
+			.about-grid {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) 330px;
+				gap: 18px;
+			}
+
+			.fact-list {
+				display: grid;
+				gap: 10px;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.fact-list li {
+				display: flex;
+				justify-content: space-between;
+				gap: 14px;
+				border-bottom: 1px solid var(--line);
+				padding: 9px 0;
+			}
+
+			.fact-list li:last-child {
+				border-bottom: 0;
+			}
+
+			.fact-list span:first-child {
+				color: var(--soft);
+			}
+
+			.fact-list span:last-child {
+				color: var(--text);
+				font-weight: 700;
+				text-align: right;
+			}
+
+			.steps {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: 14px;
+				counter-reset: step;
+			}
+
+			.step {
+				position: relative;
+				min-height: 224px;
+				padding: 20px;
+				counter-increment: step;
+			}
+
+			.step::before {
+				display: inline-grid;
+				width: 38px;
+				height: 38px;
+				margin-bottom: 28px;
+				place-items: center;
+				border: 1px solid var(--line-strong);
+				border-radius: 6px;
+				background: rgba(213, 168, 77, 0.08);
+				color: var(--amber);
+				content: counter(step);
+				font-family: "Russo One", system-ui, sans-serif;
+			}
+
+			.step h3 {
+				margin-bottom: 10px;
+			}
+
+			.notice-block {
+				display: grid;
+				grid-template-columns: auto minmax(0, 1fr);
+				align-items: start;
+				gap: 14px;
+				margin-top: 18px;
+				padding: 18px;
+			}
+
+			.notice-mark {
+				display: grid;
+				width: 40px;
+				height: 40px;
+				place-items: center;
+				border-radius: 6px;
+				background: rgba(239, 75, 75, 0.16);
+				color: #ffb19f;
+				font-family: "Russo One", system-ui, sans-serif;
+			}
+
+			.compare-table-wrap {
+				overflow: hidden;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			th,
+			td {
+				border-bottom: 1px solid var(--line);
+				padding: 14px;
+				text-align: left;
+				vertical-align: top;
+			}
+
+			th {
+				background: rgba(213, 168, 77, 0.08);
+				color: var(--text);
+				font-size: 0.88rem;
+				text-transform: uppercase;
+			}
+
+			td {
+				color: var(--muted);
+			}
+
+			tr:last-child td {
+				border-bottom: 0;
+			}
+
+			.tips-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 14px;
+			}
+
+			.tip {
+				padding: 18px;
+			}
+
+			.tip h3 {
+				margin-bottom: 9px;
+			}
+
+			.faq-list {
+				display: grid;
+				gap: 12px;
+			}
+
+			.faq-item {
+				padding: 0;
+			}
+
+			.faq-item summary {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 14px;
+				cursor: pointer;
+				padding: 18px;
+				color: var(--text);
+				font-weight: 800;
+				list-style: none;
+			}
+
+			.faq-item summary::-webkit-details-marker {
+				display: none;
+			}
+
+			.faq-item summary::after {
+				flex: 0 0 auto;
+				color: var(--amber);
+				content: "+";
+				font-family: "Russo One", system-ui, sans-serif;
+			}
+
+			.faq-item[open] summary::after {
+				content: "-";
+			}
+
+			.faq-item p {
+				padding: 0 18px 18px;
+			}
+
+			.footer {
+				border-top: 1px solid rgba(213, 168, 77, 0.14);
+				padding: 28px 0 42px;
+				color: var(--soft);
+				font-size: 0.95rem;
+			}
+
+			.footer a {
+				color: var(--text);
+				text-decoration: underline;
+				text-decoration-color: rgba(213, 168, 77, 0.5);
+				text-underline-offset: 4px;
+			}
+
+			.share-toast {
+				position: fixed;
+				right: 18px;
+				bottom: 18px;
+				z-index: 60;
+				transform: translateY(20px);
+				opacity: 0;
+				border: 1px solid var(--line-strong);
+				border-radius: var(--radius);
+				background: #0f110c;
+				color: var(--text);
+				padding: 10px 14px;
+				pointer-events: none;
+				transition:
+					opacity 180ms ease,
+					transform 180ms ease;
+			}
+
+			.share-toast.is-visible {
+				transform: translateY(0);
+				opacity: 1;
+			}
+
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+				clip: rect(0, 0, 0, 0);
+				white-space: nowrap;
+			}
+
+			@media (max-width: 1040px) {
+				.hero-copy,
+				.game-layout,
+				.section-header,
+				.about-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.side-panel {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					gap: 16px;
+				}
+			}
+
+			@media (max-width: 780px) {
+				.nav {
+					align-items: flex-start;
+				}
+
+				.nav-links {
+					display: none;
+				}
+
+				.play-section {
+					padding-top: 24px;
+				}
+
+				h1 {
+					font-size: 2.15rem;
+				}
+
+				h2 {
+					font-size: 1.65rem;
+				}
+
+				.lead {
+					font-size: 1rem;
+				}
+
+				.game-screen {
+					min-height: 240px;
+				}
+
+				.side-panel,
+				.steps,
+				.tips-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.quick-controls {
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+				}
+
+				th,
+				td {
+					padding: 12px;
+				}
+			}
+
+			@media (max-width: 520px) {
+				.main,
+				.nav {
+					width: min(100% - 24px, 1180px);
+				}
+
+				.brand span:last-child {
+					max-width: 190px;
+				}
+
+				.cta-row {
+					align-items: stretch;
+					flex-direction: column;
+				}
+
+				.primary-button,
+				.secondary-button,
+				.ghost-button {
+					width: 100%;
+				}
+
+				.game-toolbar {
+					align-items: flex-start;
+					flex-direction: column;
+				}
+
+				.game-tools {
+					width: 100%;
+				}
+
+				.game-tools .icon-button {
+					flex: 1 1 0;
+				}
+
+				.game-controls-head {
+					align-items: flex-start;
+					flex-direction: column;
+					gap: 4px;
+				}
+
+				.game-controls-head span {
+					text-align: left;
+				}
+
+				.quick-controls {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					scroll-behavior: auto !important;
+					transition-duration: 0.01ms !important;
+					animation-duration: 0.01ms !important;
+					animation-iteration-count: 1 !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#game-player">Skip to game</a>
+
+		<header class="site-header" aria-label="Site header">
+			<nav class="nav" aria-label="Primary navigation">
+				<a class="brand" href="#top" aria-label="Shift at Midnight home">
+					<span class="brand-mark">SAM</span>
+					<span>Shift at Midnight</span>
+				</a>
+				<div class="nav-links" aria-label="Page sections">
+					<a href="#game-player">Play</a>
+					<a href="#guide">Guide</a>
+					<a href="#controls">Controls</a>
+					<a href="#faq">FAQ</a>
+					<button class="ghost-button" id="share-button" type="button">
+						Share
+					</button>
+				</div>
+			</nav>
+		</header>
+
+		<main class="main" id="top">
+			<section class="play-section" id="game" aria-labelledby="page-title">
+				<div class="hero-copy">
+					<div>
+						<p class="eyebrow">Browser horror game</p>
+						<h1 id="page-title">
+							Shift at Midnight - play the night shift online
+						</h1>
+						<p class="lead">
+							Play Shift at Midnight online in your browser. You are the
+							night clerk at a remote gas station: stock shelves, serve
+							customers, verify IDs, and survive when a routine shift becomes a
+							doppelganger hunt.
+						</p>
+					</div>
+					<div class="cta-row" aria-label="Primary actions">
+						<a class="primary-button" href="#game-player">Play now</a>
+						<a class="secondary-button" href="#guide">Read the guide</a>
+					</div>
+				</div>
+
+				<div class="game-layout">
+					<div class="game-frame" id="game-player">
+						<div class="game-toolbar">
+							<div class="game-title">
+								<p>WebGL build</p>
+								<strong>Browser game build</strong>
+							</div>
+							<div class="game-tools" aria-label="Game tools">
+								<button
+									class="icon-button"
+									id="focus-button"
+									type="button"
+									title="Focus game"
+									aria-label="Focus the game canvas"
+								>
+									<svg viewBox="0 0 24 24" aria-hidden="true">
+										<path d="M8 3H5a2 2 0 0 0-2 2v3" />
+										<path d="M16 3h3a2 2 0 0 1 2 2v3" />
+										<path d="M8 21H5a2 2 0 0 1-2-2v-3" />
+										<path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+										<path d="M12 8v8" />
+										<path d="M8 12h8" />
+									</svg>
+								</button>
+								<button
+									class="icon-button"
+									id="fullscreen-button"
+									type="button"
+									title="Fullscreen"
+									aria-label="Open the game in fullscreen"
+								>
+									<svg viewBox="0 0 24 24" aria-hidden="true">
+										<path d="M8 3H5a2 2 0 0 0-2 2v3" />
+										<path d="M16 3h3a2 2 0 0 1 2 2v3" />
+										<path d="M8 21H5a2 2 0 0 1-2-2v-3" />
+										<path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+									</svg>
+								</button>
+								<button
+									class="icon-button"
+									id="reload-button"
+									type="button"
+									title="Restart page"
+									aria-label="Restart the browser game page"
+								>
+									<svg viewBox="0 0 24 24" aria-hidden="true">
+										<path d="M21 12a9 9 0 1 1-2.64-6.36" />
+										<path d="M21 3v6h-6" />
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div class="game-screen">
+							<canvas
+								id="unity-canvas"
+								tabindex="0"
+								aria-label="Shift at Midnight WebGL game canvas"
+							></canvas>
+							<div class="loading-panel" id="loading-panel" role="status">
+								<div class="loading-card">
+									<p class="eyebrow">Loading the shift</p>
+									<h2>Preparing the night shift</h2>
+									<p id="loading-text">
+										Downloading game parts. First-time loading can take up to 1
+										minute.
+									</p>
+									<div
+										class="progress-shell"
+										aria-label="Game loading progress"
+									>
+										<div class="progress-fill" id="progress-fill"></div>
+									</div>
+									<div class="loading-meta">
+										<span id="parts-text">Parts downloaded 0/7</span>
+										<span id="phase-text">Network</span>
+									</div>
+								</div>
+							</div>
+							<div class="error-panel" id="error-panel" role="alert">
+								<div class="error-card">
+									<p class="eyebrow">Load failed</p>
+									<h2>The WebGL build could not start</h2>
+									<p id="error-text">
+										Refresh the page or check whether the Build files were
+										uploaded with the site.
+									</p>
+									<div class="cta-row" style="margin-top: 18px">
+										<button class="secondary-button" type="button" id="error-retry">
+											Try again
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="game-controls-strip" aria-label="Quick controls">
+							<div class="game-controls-head">
+								<p>Controls</p>
+								<span>WASD move · E interact · Space jump · Ctrl crouch · G drop · R reload</span>
+							</div>
+							<div class="quick-controls">
+								<div>
+									<kbd>WASD</kbd>
+									<span>Move</span>
+								</div>
+								<div>
+									<kbd>Space</kbd>
+									<span>Jump</span>
+								</div>
+								<div>
+									<kbd>E</kbd>
+									<span>Interact</span>
+								</div>
+								<div>
+									<kbd>Ctrl</kbd>
+									<span>Crouch</span>
+								</div>
+								<div>
+									<kbd>G</kbd>
+									<span>Drop item</span>
+								</div>
+								<div>
+									<kbd>R</kbd>
+									<span>Reload</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<aside class="side-panel" aria-label="Play notes">
+						<div class="side-block">
+							<p class="eyebrow">Before you start</p>
+							<h2 class="sr-only">Browser play notes</h2>
+							<div class="status-list">
+								<div class="status-item">
+									<span class="status-symbol">01</span>
+									<span>
+										<strong>Be patient on first load</strong>
+										<span>
+											The browser downloads large Unity parts and then compiles the
+											game.
+										</span>
+									</span>
+								</div>
+								<div class="status-item">
+									<span class="status-symbol">02</span>
+									<span>
+										<strong>Keyboard and mouse recommended</strong>
+										<span>
+											Click the game after it loads so your controls go to the
+											canvas.
+										</span>
+									</span>
+								</div>
+								<div class="status-item">
+									<span class="status-symbol">03</span>
+									<span>
+										<strong>Keep the store moving</strong>
+										<span>
+											Routine tasks buy you time to investigate anything that feels
+											wrong.
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div class="flashlight-warning">
+								<strong>Known issue: avoid the desk flashlight</strong>
+								<p>
+									The reference build warns that picking up the flashlight on the
+									desk may freeze or soft-lock the game. Leave it alone until the
+									build is updated.
+								</p>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</section>
+
+			<section class="section" id="guide" aria-labelledby="what-is-title">
+				<div class="section-header">
+					<div>
+						<p class="eyebrow">Game overview</p>
+						<h2 id="what-is-title">What is Shift at Midnight?</h2>
+					</div>
+					<p>
+						A compact guide for the browser build: what the game is, how the
+						core loop works, and what to watch for before the station turns
+						hostile.
+					</p>
+				</div>
+
+				<div class="about-grid">
+					<div class="section-panel">
+						<p>
+							<strong>Shift at Midnight</strong> is a first-person detective
+							horror and gas station management game where routine retail tasks
+							become survival checks. Players stock shelves, process deliveries,
+							question late-night customers, compare details, and decide who is
+							human before a mistake turns the rest of the shift into a
+							lockdown.
+						</p>
+						<p style="margin-top: 14px">
+							The pressure comes from doing ordinary work while your suspicion
+							level keeps rising. You need enough rhythm to meet the nightly
+							quota, but you also need enough patience to notice a false ID, a
+							strange answer, or behavior that does not match the person in
+							front of you.
+						</p>
+					</div>
+
+					<div class="section-panel" aria-label="Game facts">
+						<ul class="fact-list">
+							<li><span>Primary search intent</span><span>Play online</span></li>
+							<li><span>Genre</span><span>Detective horror sim</span></li>
+							<li><span>Setting</span><span>Remote gas station</span></li>
+							<li><span>Browser format</span><span>Unity WebGL</span></li>
+							<li><span>Best input</span><span>Keyboard and mouse</span></li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section class="section" aria-labelledby="how-to-play-title">
+				<div class="section-header">
+					<div>
+						<p class="eyebrow">Gameplay loop</p>
+						<h2 id="how-to-play-title">How to play online</h2>
+					</div>
+					<p>
+						Think of every shift as a balance between service work and
+						investigation. If the store falls apart, you lose control. If you
+						trust the wrong customer, the night pushes back.
+					</p>
+				</div>
+
+				<div class="steps">
+					<article class="step">
+						<h3>Work the station</h3>
+						<p>
+							Stock shelves, clean the store, take deliveries, serve customers,
+							and keep your quota moving before sunrise.
+						</p>
+					</article>
+					<article class="step">
+						<h3>Investigate customers</h3>
+						<p>
+							Ask questions, check IDs, compare details, and watch reactions.
+							Small inconsistencies matter more than loud scares.
+						</p>
+					</article>
+					<article class="step">
+						<h3>Lock down when wrong</h3>
+						<p>
+							If a threat gets through, barricade, set traps, hide, and choose
+							your movement carefully. Panic wastes the few seconds you have.
+						</p>
+					</article>
+				</div>
+
+				<div class="notice-block">
+					<span class="notice-mark">!</span>
+					<div>
+						<h3>Browser build note</h3>
+						<p>
+							This page focuses on quick online play through a web-embedded
+							build. The full Steam release is an online co-op detective horror
+							game for up to three players, while this browser page is best for
+							trying the premise fast.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="section" id="controls" aria-labelledby="controls-title">
+				<div class="section-header">
+					<div>
+						<p class="eyebrow">Controls</p>
+						<h2 id="controls-title">Controls</h2>
+					</div>
+					<p>
+						These are the keyboard and mouse basics shown in the reference
+						build. For best results, play on desktop and click the game window
+						once loading finishes.
+					</p>
+				</div>
+
+				<div class="compare-table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th scope="col">Action</th>
+								<th scope="col">Input</th>
+								<th scope="col">Use it when</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Move</td>
+								<td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></td>
+								<td>Patrolling the station, checking shelves, or repositioning.</td>
+							</tr>
+							<tr>
+								<td>Jump</td>
+								<td><kbd>Space</kbd></td>
+								<td>Clearing small obstacles or correcting movement.</td>
+							</tr>
+							<tr>
+								<td>Interact</td>
+								<td><kbd>E</kbd></td>
+								<td>Serving customers, using objects, and progressing tasks.</td>
+							</tr>
+							<tr>
+								<td>Crouch</td>
+								<td><kbd>Left Ctrl</kbd></td>
+								<td>Moving low when hiding or checking tight spaces.</td>
+							</tr>
+							<tr>
+								<td>Drop item</td>
+								<td><kbd>G</kbd></td>
+								<td>Freeing your hands when you need to switch priorities.</td>
+							</tr>
+							<tr>
+								<td>Reload</td>
+								<td><kbd>R</kbd></td>
+								<td>Preparing for a survival phase after a bad call.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="section" aria-labelledby="tips-title">
+				<div class="section-header">
+					<div>
+						<p class="eyebrow">Survival notes</p>
+						<h2 id="tips-title">Tips for surviving the night shift</h2>
+					</div>
+					<p>
+						Good play is methodical. Treat every strange
+						detail as evidence, not just atmosphere.
+					</p>
+				</div>
+
+				<div class="tips-grid">
+					<article class="tip">
+						<h3>Interrogate with purpose</h3>
+						<p>
+							Do not spam questions. Ask for details you can verify against an
+							ID, behavior pattern, store task, or previous answer.
+						</p>
+					</article>
+					<article class="tip">
+						<h3>Watch the small things</h3>
+						<p>
+							Most danger begins quietly: a mismatch, a delayed reaction, or a
+							routine customer who suddenly feels out of place.
+						</p>
+					</article>
+					<article class="tip">
+						<h3>Keep your route clean</h3>
+						<p>
+							Know where the doors, counters, hiding spots, and fallback paths
+							are before the store becomes unsafe.
+						</p>
+					</article>
+					<article class="tip">
+						<h3>Shift gears fast</h3>
+						<p>
+							Once something gets through, stop optimizing the store and start
+							optimizing survival. Secure, hide, move, and reset.
+						</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="section" aria-labelledby="comparison-title">
+				<div class="section-header">
+					<div>
+						<p class="eyebrow">Version guide</p>
+						<h2 id="comparison-title">Browser build vs Steam release</h2>
+					</div>
+					<p>
+						The browser build is convenient for instant play. The full PC
+						release is the broader official version, with more emphasis on
+						multiplayer, generated shifts, and long-form progression.
+					</p>
+				</div>
+
+				<div class="compare-table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th scope="col">Feature</th>
+								<th scope="col">Browser page</th>
+								<th scope="col">Steam release</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Access</td>
+								<td>Play in the browser after the WebGL build loads.</td>
+								<td>
+									Available on Steam as the full PC release from Bun Muen and
+									Kwalee.
+								</td>
+							</tr>
+							<tr>
+								<td>Best use</td>
+								<td>Trying the premise, streaming a short run, or sharing a link.</td>
+								<td>Playing the complete co-op detective horror experience.</td>
+							</tr>
+							<tr>
+								<td>Loading</td>
+								<td>First load may take about a minute because assets are large.</td>
+								<td>Installed locally through Steam after download.</td>
+							</tr>
+							<tr>
+								<td>Official page</td>
+								<td>This web page is a quick-play guide and browser embed.</td>
+								<td>
+									<a
+										href="https://store.steampowered.com/app/3722330/Shift_At_Midnight/"
+										target="_blank"
+										rel="noopener noreferrer"
+										>View the official Steam page</a
+									>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="section" id="faq" aria-labelledby="faq-title">
+				<div class="section-header">
+					<div>
+						<p class="eyebrow">FAQ</p>
+						<h2 id="faq-title">Online FAQ</h2>
+					</div>
+					<p>
+						Short answers for searchers who want to know what the game is, why
+						it loads slowly, and how to avoid the known browser issue.
+					</p>
+				</div>
+
+				<div class="faq-list">
+					<details class="faq-item" open>
+						<summary>Is this the official Steam version?</summary>
+						<p>
+							This page hosts a web-embedded build for quick browser play and a
+							guide built around online play. The full PC game
+							is listed separately on Steam.
+						</p>
+					</details>
+					<details class="faq-item">
+						<summary>What kind of game is it?</summary>
+						<p>
+							It is a detective-leaning horror simulation set inside a late-night
+							gas station. You juggle store work with investigating customers
+							who may be doppelgangers.
+						</p>
+					</details>
+					<details class="faq-item">
+						<summary>Why does the browser build take a while to load?</summary>
+						<p>
+							The WebGL build downloads several large Unity data and WebAssembly
+							parts before the game starts. On a first visit, waiting around a
+							minute is normal.
+						</p>
+					</details>
+					<details class="faq-item">
+						<summary>What should I avoid in the browser build?</summary>
+						<p>
+							Avoid picking up the flashlight on the desk. The reference page
+							warns that it can freeze or soft-lock the browser build.
+						</p>
+					</details>
+					<details class="faq-item">
+						<summary>Can I play on mobile?</summary>
+						<p>
+							The page is responsive, but the game is best played with
+							keyboard and mouse. A desktop browser gives the most reliable
+							WebGL performance and controls.
+						</p>
+					</details>
+				</div>
+			</section>
+		</main>
+
+		<footer class="main footer">
+			<p>
+				Browser game page and quick-play guide. Game credits belong to their
+				respective owners. For the full PC release, visit the
+				<a
+					href="https://store.steampowered.com/app/3722330/Shift_At_Midnight/"
+					target="_blank"
+					rel="noopener noreferrer"
+					>official Steam page</a
+				>.
+			</p>
+		</footer>
+
+		<div class="share-toast" id="share-toast" role="status" aria-live="polite">
+			Link copied
+		</div>
+
+		<noscript>
+			<div style="padding: 24px; color: white; background: #111">
+				JavaScript is required to load the WebGL game.
+			</div>
+		</noscript>
+
+		<script>
+			const canvas = document.getElementById("unity-canvas");
+			const gameFrame = document.querySelector(".game-frame");
+			const loadingText = document.getElementById("loading-text");
+			const partsText = document.getElementById("parts-text");
+			const phaseText = document.getElementById("phase-text");
+			const progressFill = document.getElementById("progress-fill");
+			const errorText = document.getElementById("error-text");
+			const shareToast = document.getElementById("share-toast");
+			const totalParts = 7;
+			let downloadedParts = 0;
+			let unityInstance = null;
+
+			function setProgress(percent) {
+				progressFill.style.width = `${Math.max(4, Math.min(100, percent))}%`;
+			}
+
+			function setLoading(message, phase) {
+				loadingText.textContent = message;
+				if (phase) {
+					phaseText.textContent = phase;
+				}
+			}
+
+			function getParts(file, start, end) {
+				const parts = [];
+				for (let index = start; index <= end; index += 1) {
+					parts.push(`${file}.part${index}`);
+				}
+				return parts;
+			}
+
+			async function mergeFiles(fileParts, label) {
+				const buffers = [];
+				for (const part of fileParts) {
+					const response = await fetch(part, { cache: "force-cache" });
+					if (!response.ok) {
+						throw new Error(`Could not download ${part}`);
+					}
+					buffers.push(await response.arrayBuffer());
+					downloadedParts += 1;
+					partsText.textContent = `Parts downloaded ${downloadedParts}/${totalParts}`;
+					setProgress(8 + (downloadedParts / totalParts) * 54);
+					setLoading(`Downloading ${label} files. Please keep this tab open.`, "Network");
+				}
+
+				return URL.createObjectURL(new Blob(buffers));
+			}
+
+			function loadScript(src) {
+				return new Promise((resolve, reject) => {
+					const script = document.createElement("script");
+					script.src = src;
+					script.onload = resolve;
+					script.onerror = () => reject(new Error(`Could not load ${src}`));
+					document.body.appendChild(script);
+				});
+			}
+
+			async function bootGame() {
+				try {
+					setProgress(8);
+					setLoading(
+						"Downloading game parts. First-time loading can take up to 1 minute.",
+						"Network",
+					);
+
+					const [dataUrl, wasmUrl] = await Promise.all([
+						mergeFiles(getParts("Build/ShiftAtMidnightPort.data", 1, 5), "data"),
+						mergeFiles(getParts("Build/ShiftAtMidnightPort.wasm", 1, 2), "code"),
+					]);
+
+					setProgress(66);
+					setLoading("Starting the Unity runtime.", "Initialize");
+					await loadScript("Build/ShiftAtMidnightPort.loader.js");
+
+					const config = {
+						dataUrl,
+						frameworkUrl: "Build/ShiftAtMidnightPort.framework.js",
+						codeUrl: wasmUrl,
+						streamingAssetsUrl: "StreamingAssets",
+						companyName: "slqntdevss",
+						productName: "ShiftAtMidnight",
+						productVersion: "1.00",
+					};
+
+					unityInstance = await createUnityInstance(canvas, config, (progress) => {
+						setProgress(66 + progress * 34);
+						setLoading("Compiling the night shift in your browser.", "WebGL");
+					});
+
+					setProgress(100);
+					gameFrame.classList.add("game-ready");
+					canvas.focus();
+				} catch (error) {
+					gameFrame.classList.add("game-failed");
+					errorText.textContent =
+						error && error.message
+							? error.message
+							: "The WebGL build could not start.";
+					console.error(error);
+				}
+			}
+
+			document.getElementById("focus-button").addEventListener("click", () => {
+				canvas.focus();
+			});
+
+			document.getElementById("fullscreen-button").addEventListener("click", () => {
+				if (unityInstance && typeof unityInstance.SetFullscreen === "function") {
+					unityInstance.SetFullscreen(1);
+					return;
+				}
+
+				const target = document.getElementById("game-player");
+				if (target.requestFullscreen) {
+					target.requestFullscreen();
+				}
+			});
+
+			document.getElementById("reload-button").addEventListener("click", () => {
+				window.location.reload();
+			});
+
+			document.getElementById("error-retry").addEventListener("click", () => {
+				window.location.reload();
+			});
+
+			document.getElementById("share-button").addEventListener("click", async () => {
+				const shareData = {
+					title: "Shift at Midnight",
+					text: "Play Shift at Midnight online and survive the gas station night shift.",
+					url: window.location.href,
+				};
+
+				try {
+					if (navigator.share) {
+						await navigator.share(shareData);
+					} else if (navigator.clipboard) {
+						await navigator.clipboard.writeText(window.location.href);
+						shareToast.classList.add("is-visible");
+						window.setTimeout(() => shareToast.classList.remove("is-visible"), 1800);
+					}
+				} catch (error) {
+					if (navigator.clipboard) {
+						await navigator.clipboard.writeText(window.location.href);
+						shareToast.classList.add("is-visible");
+						window.setTimeout(() => shareToast.classList.remove("is-visible"), 1800);
+					}
+				}
+			});
+
+			bootGame();
+		</script>
+	</body>
+</html>
