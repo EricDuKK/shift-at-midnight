@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shift-at-midnight.pages.dev/sitemap.xml
+Sitemap: https://shiftatmidnight.store/sitemap.xml

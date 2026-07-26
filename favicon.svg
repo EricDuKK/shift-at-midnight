@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+	<title id="title">Shift at Midnight favicon</title>
+	<desc id="desc">A midnight horror game mark with amber trim and SAM initials.</desc>
+	<rect width="64" height="64" rx="13" fill="#080907"/>
+	<rect x="3.5" y="3.5" width="57" height="57" rx="10" fill="#11120d" stroke="#d5a84d" stroke-width="3"/>
+	<path d="M10 16h44" stroke="#343427" stroke-width="2" stroke-linecap="round"/>
+	<path d="M10 48h44" stroke="#343427" stroke-width="2" stroke-linecap="round"/>
+	<path d="M44 10l9 9-9 9" fill="none" stroke="#ef4b4b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+	<text x="32" y="40" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="20" font-weight="900" letter-spacing="-1" fill="#f3eedb">SAM</text>
+	<text x="32" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" font-weight="700" fill="#d5a84d">12:00</text>
+</svg>

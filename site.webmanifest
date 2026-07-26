@@ -1,0 +1,16 @@
+{
+	"name": "Shift at Midnight Online",
+	"short_name": "Shift Midnight",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#080907",
+	"theme_color": "#080907",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}

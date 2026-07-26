@@ -29,12 +29,13 @@ Unity split files to stay in those folders.
 ## Included SEO files
 
 - `index.html` - single-page game site with metadata and structured data
+- `favicon.svg` - browser tab icon for the site
+- `site.webmanifest` - install/display metadata for browsers
 - `robots.txt` - crawler instructions
 - `sitemap.xml` - sitemap for the current Pages URL
 - `_headers` - Cloudflare Pages cache and security headers
 
-If you deploy to a custom domain, update the canonical URL in `index.html` and
-the domain in `robots.txt` and `sitemap.xml`.
+The production domain used in metadata is `https://shiftatmidnight.store/`.
 
 ## Credits
 
